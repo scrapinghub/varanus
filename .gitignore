@@ -1,0 +1,14 @@
+build
+dist
+*.egg-info
+*.pyc
+.cache
+.coverage
+.pytest_cache
+.scrapy
+.tox
+.venv
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.idea/
