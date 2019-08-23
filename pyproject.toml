@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "varanus"
-version = "0.1.0"
+version = "1.0.0"
 description = "A command line spider monitoring tool"
 authors = ["Steven Almeroth <sroth77@gmail.com>"]
 readme = "README.rst"
@@ -32,6 +32,56 @@ plotly = "^3.10"
 [tool.poetry.dev-dependencies]
 flake8 = "*"
 pytest = "^3.0"
+
+[tool.poetry.scripts]
+varanus = "varanus:app"
+
+[tool.poetry.plugins."cliff.formatter.list"]
+graph = "varanus.formatters:GraphFormatter"
+
+[tool.poetry.plugins."varanus.clier"]
+collect = "varanus.cli:Collections"
+item    = "varanus.cli:Item"
+job     = "varanus.cli:Job"
+jobs    = "varanus.cli:Jobs"
+stats   = "varanus.cli:Stats"
+project = "varanus.cli:Project"
+scripts = "varanus.cli:Scripts"
+spiders = "varanus.cli:Spiders"
+workers = "varanus.cli:Workers"
+
+[tool.poetry.plugins."varanus.clier.collect"]
+project = "varanus.core.project:Project"
+
+[tool.poetry.plugins."varanus.clier.item"]
+project = "varanus.core.project:Project"
+
+[tool.poetry.plugins."varanus.clier.job"]
+project = "varanus.core.project:Project"
+
+[tool.poetry.plugins."varanus.clier.jobs"]
+project = "varanus.core.project:Project"
+
+[tool.poetry.plugins."varanus.clier.project"]
+project = "varanus.core.project:Project"
+
+[tool.poetry.plugins."varanus.clier.scripts"]
+# These have to be in this order
+project = "varanus.core.project:Project"
+workers = "varanus.core.scripts:Workers"
+
+[tool.poetry.plugins."varanus.clier.spiders"]
+# These have to be in this order
+project = "varanus.core.project:Project"
+workers = "varanus.core.spiders:Workers"
+
+[tool.poetry.plugins."varanus.clier.stats"]
+project = "varanus.core.project:Project"
+
+[tool.poetry.plugins."varanus.clier.workers"]
+# These have to be in this order
+project = "varanus.core.project:Project"
+workers = "varanus.core.workers:Workers"
 
 [build-system]
 requires = ["poetry>=0.12"]
