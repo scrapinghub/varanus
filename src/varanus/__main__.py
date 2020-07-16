@@ -9,6 +9,7 @@ import cliff.commandmanager
 
 from .__version__ import __version__
 from .session import Session
+from .__patch__ import apply_patch
 
 CLINS = 'varanus.clier'
 
@@ -46,10 +47,13 @@ class VaranusApp(cliff.app.App):
 def main():
     """ Execute the application
     """
-    VaranusApp().run(sys.argv[1:])
+    app = VaranusApp()
+    apply_patch(app)
+    app.run(sys.argv[1:])
 
 
 # Make the script runnable
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

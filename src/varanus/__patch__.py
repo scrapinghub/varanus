@@ -10,6 +10,8 @@ identical versions with the addition of logging the responses.
 .. todo:: Inject code instead of replacing routines.
 """
 import logging
+from functools import partialmethod
+
 import requests
 import scrapinghub.legacy
 import scrapinghub.client
@@ -25,7 +27,7 @@ __patches__ = {
 }
 
 
-def HubstorageClient_request(self, is_idempotent=False, **kwargs):
+def HubstorageClient_request(self, is_idempotent=False, app=None, **kwargs):
     """Execute an HTTP request with the current client session
 
     Use the retry policy configured in the client when is_idempotent is True.
@@ -34,11 +36,12 @@ def HubstorageClient_request(self, is_idempotent=False, **kwargs):
 
     def invoke_request():
         r = self.session.request(**kwargs)
-        log_response(
-            r,
-            source=f'{__name__}:scrapinghub.client.HubstorageClient.request',
-            color='blue',
-        )
+        if app.options.debug:
+            log_response(
+                r,
+                source=f'{__name__}:scrapinghub.client.HubstorageClient.request',
+                color='blue',
+            )
         try:
             r.raise_for_status()
             return r
@@ -52,7 +55,7 @@ def HubstorageClient_request(self, is_idempotent=False, **kwargs):
         return invoke_request()
 
 
-def Connection_request(self, url, data, headers, format, raw, files=None):
+def Connection_request(self, url, data, headers, format, raw, files=None, app=None):
     """Performs the request using and returns the content deserialized,
     based on given `format`
 
@@ -74,13 +77,16 @@ def Connection_request(self, url, data, headers, format, raw, files=None):
         response = self._session.post(url, headers=headers,
                                       data=data, files=files,
                                       timeout=self._connection_timeout)
-    log_response(
-        response,
-        source=f'{__name__}:scrapinghub.legacy.Connection._request',
-        color='cyan',
-    )
-    return self._decode_response(response, format, raw)
+    if app.options.debug:
+        log_response(
+            response,
+            source=f'{__name__}:scrapinghub.legacy.Connection._request',
+            color='cyan',
+        )
+        return self._decode_response(response, format, raw)
 
 
-scrapinghub.client.HubstorageClient.request = HubstorageClient_request
-scrapinghub.legacy.Connection._request = Connection_request
+def apply_patch(app):
+    scrapinghub.client.HubstorageClient.request = partialmethod(HubstorageClient_request, app=app)
+    scrapinghub.legacy.Connection._request = partialmethod(Connection_request, app=app)
+
