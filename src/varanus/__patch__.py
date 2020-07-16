@@ -17,6 +17,7 @@ import scrapinghub.legacy
 import scrapinghub.client
 import scrapinghub.client.exceptions
 
+from . import network
 from .network import log_response
 
 hsc_logger = logging.getLogger('HubstorageClient')
@@ -86,7 +87,7 @@ def Connection_request(self, url, data, headers, format, raw, files=None, app=No
         return self._decode_response(response, format, raw)
 
 
-def apply_patch(app):
+def apply_patches(app):
     scrapinghub.client.HubstorageClient.request = partialmethod(HubstorageClient_request, app=app)
     scrapinghub.legacy.Connection._request = partialmethod(Connection_request, app=app)
-
+    network.app = app

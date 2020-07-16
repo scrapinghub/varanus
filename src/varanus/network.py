@@ -40,7 +40,8 @@ def RequestJson(session, url: str, method='GET', query: dict = {}, data: (dict, 
     query = dict(query)
     query.setdefault('format', 'json')
     response = session._session.request(url=url, method=method, params=query, json=data)
-    log_response(response)
+    if app.options.debug:
+        log_response(response)
     if response.ok:
         return response.json() if response.content else ''
     else:

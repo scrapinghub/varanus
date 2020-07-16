@@ -21,7 +21,10 @@ The project originally was built to use it, but instead of beginning the ``poetr
 
 (Since the project uses a ``.lock`` file, using pipenv plus some virtualenv manager should also work, but these instructions use poetry.)
 
-To install::
+-------
+Install
+-------
+::
 
     $ pip install poetry
 
@@ -56,6 +59,10 @@ When you install an application using poetry, a virtualenv is created automagica
       - Installing pytest (3.10.1)
       - Installing varanus (0.1.0)
 
+-----
+Usage
+-----
+
 Example usage::
 
     $ poetry run varanus jobs -p 376566 -s dod_953_tripadvisor
@@ -67,6 +74,9 @@ Example usage::
     +================+=====================+==========+==========+==================+==================+=====+=======+=======+========+==========+==========+=================+
     | 376566/418/805 | dod_953_tripadvisor |        0 |        9 | 2020/04/19 19:10 | 2020/04/19 19:19 |   0 |    41 |    73 |    567 | finished | finished | 2233af50-master |
     +----------------+---------------------+----------+----------+------------------+------------------+-----+-------+-------+--------+----------+----------+-----------------+
+
+Options
+-------
 
 To see the command line arguments run varanus help::
 
@@ -97,3 +107,34 @@ To see the command line arguments run varanus help::
 
 Also, take a look at the ``add_argument`` calls in
 `The varanus CLI folder <https://github.com/scrapinghub/varanus/tree/master/src/varanus/cli>`_.
+
+---------
+Debugging
+---------
+
+There are a couple ways CLiff can assist in debugging.
+
+debug
+-----
+
+Add the `--debug` command-line flag to set `app.options.debug` which you can reference in your program::
+
+  $ poetry run varanus scripts --debug
+
+Then in your code you can use it::
+
+    if app.options.debug:
+        log_response(response)
+
+Verbosity
+---------
+
+Set the `-v` flag to set the logging level::
+
+  $ poetry run varanus scripts -vv
+
+The log level is set depending on how many *v*'s you supply:
+
+*  0: level = `warning` if you do not supply any
+*  1: level = `info` if you supply one `-v`
+*  2: level = `debug` if you supply two `-vv`
