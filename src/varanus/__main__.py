@@ -8,8 +8,8 @@ import cliff.app
 import cliff.commandmanager
 
 from .__version__ import __version__
+from .__patch__ import apply_patches
 from .session import Session
-from .__patch__ import apply_patch
 
 CLINS = 'varanus.clier'
 
@@ -46,9 +46,11 @@ class VaranusApp(cliff.app.App):
 
 def main():
     """ Execute the application
+
+    .. note:: Logging level not setup until app is ``run``.
     """
     app = VaranusApp()
-    apply_patch(app)
+    apply_patches(app)
     app.run(sys.argv[1:])
 
 
@@ -56,4 +58,3 @@ def main():
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
