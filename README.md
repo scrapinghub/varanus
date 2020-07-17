@@ -1,6 +1,7 @@
 # Varanus
 
-This tool wraps an API POST request to scrapinghub's job and other data storage API.
+This tool wraps an API POST request to scrapinghub's job and other data storage
+API.
 
 ## Requirements
 
@@ -11,9 +12,11 @@ This tool wraps an API POST request to scrapinghub's job and other data storage 
 
 For those unfamiliar with poetry, it's a virtualenv + package manager.
 
-The project originally was built to use it, but instead of beginning the `poetry new` command,  we do a hybrid clone + poetry install
+The project originally was built to use it, but instead of beginning the
+`poetry new` command,  we do a hybrid clone + poetry install
 
-(Since the project uses a `.lock` file, using pipenv plus some virtualenv manager should also work, but these instructions use poetry.)
+(Since the project uses a `.lock` file, using pipenv plus some virtualenv
+manager should also work, but these instructions use poetry.)
 
 ### Install
 
@@ -23,7 +26,8 @@ The project originally was built to use it, but instead of beginning the `poetry
 
     $ cd varanus
 
-When you install an application using poetry, a virtualenv is created automagically:
+When you install an application using poetry, a virtualenv is created
+automagically:
 
     $ poetry install
 
@@ -167,7 +171,8 @@ The varanus [CLI folder](https://github.com/scrapinghub/varanus/tree/master/src/
 
 #### Graph
 
-You can use the Cliff output formatter to display data as a graph on an HTML page using `-f graph`:
+You can use a Cliff output formatter to display data with Plotly as a graph on
+an HTML page using `-f graph`:
 
     $ poetry run varanus jobs -f graph
 
@@ -179,7 +184,8 @@ There are a couple ways Cliff can assist in debugging.
 
 #### Debug
 
-Add the `--debug` command-line flag to set `app.options.debug` which you can reference in your program:
+Add the `--debug` command-line flag to set `app.options.debug` which you can
+reference in your program:
 
   $ poetry run varanus scripts --debug
 
