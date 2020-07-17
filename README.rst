@@ -105,6 +105,75 @@ To see the command line arguments run varanus help::
       stats          Show jobs statistics
       workers        List the project scripts & spiders
 
+You can also get help for individual commands::
+
+    $ poetry run varanus jobs --help
+
+    usage: varanus jobs [-h] [-f {csv,graph,json,table,value,yaml}] [-c COLUMN]
+                        [--quote {all,minimal,none,nonnumeric}] [--noindent]
+                        [--max-width <integer>] [--fit-width] [--print-empty]
+                        [--sort-column SORT_COLUMN] [--project PROJECT]
+                        [--spider SPIDER] [--key JOBKEY]
+                        [--all-tags ALL_TAGS [ALL_TAGS ...]]
+                        [--any-tags HAS_TAG [HAS_TAG ...]]
+                        [--not-tags LACKS_TAG [LACKS_TAG ...]] [--arg WORKER_ARG]
+                        [--count COUNT] [--start START] [--running]
+                        [{all,args,codes,info,results,tags,time}]
+
+    List jobs filtered by various options
+
+    positional arguments:
+      {all,args,codes,info,results,tags,time}
+                            Job listing content
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      --project PROJECT, -p PROJECT
+      --spider SPIDER, -s SPIDER
+                            Filter for given spider name
+      --key JOBKEY, -k JOBKEY
+                            Job key, e.g. 123/456/789 or just 456/789
+      --all-tags ALL_TAGS [ALL_TAGS ...], -t ALL_TAGS [ALL_TAGS ...]
+                            Jobs have all of the tags
+      --any-tags HAS_TAG [HAS_TAG ...]
+                            Jobs have any of the tags
+      --not-tags LACKS_TAG [LACKS_TAG ...]
+                            Jobs do not have any of the tags
+      --arg WORKER_ARG, -a WORKER_ARG
+                            Filter for given argument
+      --count COUNT         How many jobs show
+      --start START         How many jobs to skip
+      --running             Also show running jobs
+
+    output formatters:
+      output formatter options
+
+      -f {csv,graph,json,table,value,yaml}, --format {csv,graph,json,table,value,yaml}
+                            the output format, defaults to table
+      -c COLUMN, --column COLUMN
+                            specify the column(s) to include, can be repeated
+      --sort-column SORT_COLUMN
+                            specify the column(s) to sort the data (columns
+                            specified first have a priority, non-existing columns
+                            are ignored), can be repeated
+
+    CSV Formatter:
+      --quote {all,minimal,none,nonnumeric}
+                            when to include quotes, defaults to nonnumeric
+
+    json formatter:
+      --noindent            whether to disable indenting the JSON
+
+    table formatter:
+      --max-width <integer>
+                            Maximum display width, <1 to disable. You can also use
+                            the CLIFF_MAX_TERM_WIDTH environment variable, but the
+                            parameter takes precedence.
+      --fit-width           Fit the table to the display width. Implied if --max-
+                            width greater than 0. Set the environment variable
+                            CLIFF_FIT_WIDTH=1 to always enable
+      --print-empty         Print empty table if there is no data to show.
+
 Also, take a look at the ``add_argument`` calls in
 `The varanus CLI folder <https://github.com/scrapinghub/varanus/tree/master/src/varanus/cli>`_.
 
@@ -112,7 +181,7 @@ Also, take a look at the ``add_argument`` calls in
 Debugging
 ---------
 
-There are a couple ways CLiff can assist in debugging.
+There are a couple ways Cliff can assist in debugging.
 
 debug
 -----
