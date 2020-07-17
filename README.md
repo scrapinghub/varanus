@@ -1,30 +1,21 @@
-*******
-Varanus
-*******
+# Varanus
 
 This tool wraps an API POST request to scrapinghub's job and other data storage API.
 
-============
-Requirements
-============
+## Requirements
 
 - Python 3.6+
 - Poetry
 
-===============
-Developer Notes
-===============
+## Developer Notes
 
 For those unfamiliar with poetry, it's a virtualenv + package manager.
 
-The project originally was built to use it, but instead of beginning the ``poetry new`` command,  we do a hybrid clone + poetry install
+The project originally was built to use it, but instead of beginning the `poetry new` command,  we do a hybrid clone + poetry install
 
-(Since the project uses a ``.lock`` file, using pipenv plus some virtualenv manager should also work, but these instructions use poetry.)
+(Since the project uses a `.lock` file, using pipenv plus some virtualenv manager should also work, but these instructions use poetry.)
 
--------
-Install
--------
-::
+### Install
 
     $ pip install poetry
 
@@ -32,7 +23,7 @@ Install
 
     $ cd varanus
 
-When you install an application using poetry, a virtualenv is created automagically::
+When you install an application using poetry, a virtualenv is created automagically:
 
     $ poetry install
 
@@ -59,11 +50,9 @@ When you install an application using poetry, a virtualenv is created automagica
       - Installing pytest (3.10.1)
       - Installing varanus (0.1.0)
 
------
-Usage
------
+### Usage
 
-Example usage::
+Example usage:
 
     $ poetry run varanus jobs -p 376566 -s dod_953_tripadvisor
 
@@ -75,10 +64,9 @@ Example usage::
     | 376566/418/805 | dod_953_tripadvisor |        0 |        9 | 2020/04/19 19:10 | 2020/04/19 19:19 |   0 |    41 |    73 |    567 | finished | finished | 2233af50-master |
     +----------------+---------------------+----------+----------+------------------+------------------+-----+-------+-------+--------+----------+----------+-----------------+
 
-Options
--------
+#### Options
 
-To see the command line arguments run varanus help::
+To see the command line arguments run varanus help:
 
     $ poetry run varanus help
 
@@ -105,7 +93,7 @@ To see the command line arguments run varanus help::
       stats          Show jobs statistics
       workers        List the project scripts & spiders
 
-You can also get help for individual commands::
+You can also get help for individual commands:
 
     $ poetry run varanus jobs --help
 
@@ -174,31 +162,35 @@ You can also get help for individual commands::
                             CLIFF_FIT_WIDTH=1 to always enable
       --print-empty         Print empty table if there is no data to show.
 
-Also, take a look at the ``add_argument`` calls in
-`The varanus CLI folder <https://github.com/scrapinghub/varanus/tree/master/src/varanus/cli>`_.
+Also, take a look at the `add_argument` calls in
+The varanus [CLI folder](https://github.com/scrapinghub/varanus/tree/master/src/varanus/cli).
 
----------
-Debugging
----------
+#### Graph
+
+You can use the Cliff output formatter to display data as a graph on an HTML page using `-f graph`:
+
+    $ poetry run varanus jobs -f graph
+
+![Job graph](https://user-images.githubusercontent.com/204645/87793796-bc75ec00-c813-11ea-8eed-8bd9d1e615cc.png)
+
+### Debugging
 
 There are a couple ways Cliff can assist in debugging.
 
-debug
------
+#### Debug
 
-Add the `--debug` command-line flag to set `app.options.debug` which you can reference in your program::
+Add the `--debug` command-line flag to set `app.options.debug` which you can reference in your program:
 
   $ poetry run varanus scripts --debug
 
-Then in your code you can use it::
+Then in your code you can use it:
 
     if app.options.debug:
         log_response(response)
 
-Verbosity
----------
+#### Verbosity
 
-Set the `-v` flag to set the logging level::
+Set the `-v` flag to set the logging level:
 
   $ poetry run varanus scripts -vv
 
