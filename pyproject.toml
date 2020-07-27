@@ -3,7 +3,7 @@ name = "varanus"
 version = "1.0.0"
 description = "A command line spider monitoring tool"
 authors = ["Steven Almeroth <sroth77@gmail.com>"]
-readme = "README.rst"
+readme = "README.md"
 repository = "https://github.com/scrapinghub/varanus"
 classifiers = [ # https://pypi.org/classifiers/
     "Development Status :: 5 - Production/Stable",
