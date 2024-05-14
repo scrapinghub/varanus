@@ -102,6 +102,11 @@ class MetaJob(Timed):
         self.metadata = job or {}
         self.__dict__.update(self.metadata)
 
+    def populate_from_job(self, job):
+        self.items = job.items.stats()['totals']['input_values']
+        self.pages = job.requests.stats()['totals']['input_values']
+        self.logs = job.logs.stats()['totals']['input_values']
+
 
 class Job(MetaJob):
 
@@ -118,6 +123,7 @@ class Job(MetaJob):
             except StopIteration:
                 pass
             self.metajob = MetaJob(dict(metadata))
+            self.metajob.populate_from_job(data)
             self.__dict__.update(self.metajob.__dict__)
             for key in defaults:
                 setattr(self, key, defaults[key])
